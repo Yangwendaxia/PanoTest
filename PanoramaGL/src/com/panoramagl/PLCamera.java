@@ -46,6 +46,8 @@ public class PLCamera extends PLRenderableElementBase implements PLICamera
 	private NSTimer mAnimationTimer;
 	private PLCameraListener mInternalListener, mListener;
 	
+	private boolean  mActionMode = false;
+	
 	/**init methods*/
 	
 	public PLCamera()
@@ -985,11 +987,17 @@ public class PLCamera extends PLRenderableElementBase implements PLICamera
 				float pitchDelta = 0,yawDelta = 0;
 				if(didRotatePitch) {
 					pitchDelta = (yOffset / PLConstants.kMaxDisplaySize * rotationSensitivity);
-					this.setPitch(this.getPitch() + pitchDelta);
+					if(!mActionMode)
+					{
+						this.setPitch(this.getPitch() + pitchDelta);
+					}
 				}
 				if(didRotateYaw) {
 					yawDelta = (xOffset / PLConstants.kMaxDisplaySize * rotationSensitivity);
-					this.setYaw(this.getYaw() + yawDelta);
+					if(!mActionMode)
+					{
+						this.setYaw(this.getYaw() + yawDelta);
+					}
 				}
 				
 				Log.d(this.getClass().getSimpleName()," pitchDelta = " + pitchDelta + " yawDelta = " + yawDelta);
@@ -998,7 +1006,7 @@ public class PLCamera extends PLRenderableElementBase implements PLICamera
 				if(mInternalListener != null)
 				{
 					mInternalListener.didRotate(sender, this, pitch, yaw, roll);
-					mInternalListener.didRotateDelta(sender, this, pitchDelta, yawDelta);
+					//mInternalListener.didRotateDelta(sender, this, pitchDelta, yawDelta);
 				}
 				
 				if(mListener != null)
@@ -1189,4 +1197,14 @@ public class PLCamera extends PLRenderableElementBase implements PLICamera
 			return new PLLookAtAndFovAnimatedData(sender, camera, pitch, yaw, fov, defaultMaxStep);
 		}
 	}
+
+	public boolean isActionMode() {
+		return mActionMode;
+	}
+
+	public void setActionMode(boolean mActionMode) {
+		this.mActionMode = mActionMode;
+	}
+	
+	
 }

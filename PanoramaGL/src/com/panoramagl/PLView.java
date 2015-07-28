@@ -139,6 +139,8 @@ public class PLView extends Activity implements PLIView, SensorEventListener, On
 	
 	private PLViewListener mListener;
 	
+	protected Boolean mActionMode = false; 
+	
 	/**init methods*/
 	
 	protected void initializeValues()
@@ -773,14 +775,22 @@ public class PLView extends Activity implements PLIView, SensorEventListener, On
 		{
 			if(!mIsValidForFov)
 			{
-				Log.d(this.getClass().getSimpleName(), " mStartPoint = " + mStartPoint);
-				Log.d(this.getClass().getSimpleName(), " mEndPoint = " + mEndPoint);
+				//Log.d(this.getClass().getSimpleName(), " mStartPoint = " + mStartPoint);
+				//Log.d(this.getClass().getSimpleName(), " mEndPoint = " + mEndPoint);
 				mPanorama.getCamera().rotate(this, mStartPoint, mEndPoint);
 			}
 			mGLSurfaceView.requestRender();
 			return true;
 		}
 		return false;
+	}
+	
+	protected boolean getActionMode() {
+		return mActionMode;
+	}
+
+	protected void setActionMode(Boolean mActionMode) {
+		this.mActionMode = mActionMode;
 	}
 	
 	/**animation methods*/
@@ -2360,4 +2370,6 @@ public class PLView extends Activity implements PLIView, SensorEventListener, On
 	{
 		return false;
 	}
+
+	
 }
