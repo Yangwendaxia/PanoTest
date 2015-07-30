@@ -37,6 +37,7 @@ import android.widget.Spinner;
 import android.widget.Toast;
 import android.widget.ZoomControls;
 
+import com.google.gson.Gson;
 import com.panoramagl.PLCamera;
 import com.panoramagl.PLConstants;
 import com.panoramagl.PLCubicPanorama;
@@ -82,12 +83,56 @@ public class MainActivity extends PLView implements OnClickListener {
 	private PLHotspot preHotSpot = null;
 	private Boolean addHotSpot = false;
 	private Boolean delHotSpot = false;
+	
+	private Person mPerson = null;
 
 	/** init methods */
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+				
+		mPerson = new Person();
+		mPerson.setName("level1");
+		List<Person> list1 = new ArrayList<Person>();
+		mPerson.setList(list1);
+			
+		Person person2 = new Person();
+		person2.setName("lever2");
+		List<Person> list2 = new ArrayList<Person>();
+		person2.setList(list2);
+		
+		Person person3 = new Person();
+		person3.setName("lever3");
+		List<Person> list3 = new ArrayList<Person>();
+		person3.setList(list3);
+		
+		Person person4 = new Person();
+		person4.setName("lever4");
+		List<Person> list4 = new ArrayList<Person>();
+		person4.setList(list4);
+		
+		Person person5 = new Person();
+		person5.setName("lever5");
+		List<Person> list5 = new ArrayList<Person>();
+		person5.setList(list5);
+		
+		Person person6 = new Person();
+		person6.setName("lever6");
+		
+		list5.add(person6);
+		list4.add(person5);
+		list3.add(person4);
+		list2.add(person3);
+		list1.add(person2);
+		
+		Gson gson = new Gson();
+		String json = gson.toJson(mPerson);
+		Log.d(TAG," json = " + json);
+		Person recover = gson.fromJson(json, Person.class);
+		
+		
+		
 		this.setListener(new PLViewListener() {
 			@Override
 			public void onTouchesEnded(PLIView view, List<UITouch> touches,
@@ -249,6 +294,7 @@ public class MainActivity extends PLView implements OnClickListener {
 				float y = plVector3.y;
 				float z = plVector3.z;
 				float[] py = convertPositionToPitchAndYaw(x, y, z);
+				Log.d("MainActivity", "hitPoint[].length = " + panorama.getCollisionData().hitPoint.length);
 				Log.d("MainActivity", "(x,y,z)" + x + "," + y + "," + z
 						+ " py = (" + py[0] + "," + py[1] + ")");
 				if (!camera.isActionMode()) {

@@ -455,7 +455,6 @@ public abstract class PLSceneBase extends PLRenderableElementBase implements PLI
 				mCollisionData.points[1].setValues(vertexs[3], vertexs[4],  vertexs[5]);
 				mCollisionData.points[2].setValues(vertexs[6], vertexs[7],  vertexs[8]);
 				mCollisionData.points[3].setValues(vertexs[9], vertexs[10], vertexs[11]);
-				Log.d("PLSceneBase", "mCollisionData.hitPoint (x,y,z) =(" + mCollisionData.hitPoint[0].x + ","+ mCollisionData.hitPoint[0].y+","+ mCollisionData.hitPoint[0].z+")");
 				//float[] py = ((PLHotspot)element).convertPositionToPitchAndYaw(mCollisionData.hitPoint[0].x, mCollisionData.hitPoint[0].y, mCollisionData.hitPoint[0].z);
 //				Log.d(this.getClass().getSimpleName()," pitch = " + py[0]+ " yaw = "+py[1]);
 				if(PLIntersection.checkLineBox(ray, mCollisionData.points[0], mCollisionData.points[1], mCollisionData.points[2], mCollisionData.points[3], mCollisionData.hitPoint))
@@ -480,6 +479,7 @@ public abstract class PLSceneBase extends PLRenderableElementBase implements PLI
 				}
 				else
 				{
+					
 					if(element.getTouchStatus() != PLSceneElementTouchStatus.PLSceneElementTouchStatusOut)
 					{
 						if(element.touchOut(this));
@@ -487,6 +487,10 @@ public abstract class PLSceneBase extends PLRenderableElementBase implements PLI
 					}
 				}
 			}
+		}
+		if(!isMoving)
+		{
+			Log.d("PLSceneBase", "mCollisionData.hitPoint (x,y,z) =(" + mCollisionData.hitPoint[0].x + ","+ mCollisionData.hitPoint[0].y+","+ mCollisionData.hitPoint[0].z+")");
 		}
 		return hits;
 	}

@@ -1003,6 +1003,7 @@ public class PLView extends Activity implements PLIView, SensorEventListener, On
 		if(!this.executeDefaultAction(touches, PLTouchEventType.PLTouchEventTypeBegan))
 		{
 			mEndPoint.setValues(mStartPoint.setValues(this.getLocationOfFirstTouch(touches)));
+			Log.d(this.getClass().getSimpleName(),"mEndPoint = " + mEndPoint.x + "," + mEndPoint.y);
 			if(touches.get(0).getTapCount() == 1)
 			{
 				mTouchStatus = PLTouchStatus.PLTouchStatusFirstSingleTapCount;
